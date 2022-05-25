@@ -1,24 +1,24 @@
-import math #ใช้คำนวณทางคณิตศาสตร์เก็บแต้ม
-import random #ใช้สุ่มตำแหน่งของตัวที่ถูกยิง
-import sqlite3 #ใช้module db
+import math 
+import random 
+import sqlite3 
 import pygame
-#from pygame import mixer
+from pygame import mixer
 
 #pygame
-pygame.init() #initialize การเริ่มต้นกำลังจะเขียนแล้ว
-con = sqlite3.connect(r"project.db") #สร้างตัวแปรเรียกใช้module sqlite3 ในวงเล็บต้องใส่ที่อยู่ไฟล์db และใส่rเพราะให้มันreadทุกตัวไล่มา
+pygame.init() 
+con = sqlite3.connect(r"project.db") 
 
    #screen
 WIDTH = 800
 HEIGHT = 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT)) #คำสั่งตั้งขนาดจอแสดงผล
+screen = pygame.display.set_mode((WIDTH, HEIGHT)) 
 #Background
-background = pygame.image.load('wall (1).png') #เปลี่ยนภาพพื้นหลัง
-background_intro = pygame.image.load('intro wall (7).png') #เปลี่ยนภาพพื้นหลัง
+background = pygame.image.load('wall (1).png') 
+background_intro = pygame.image.load('intro wall (7).png') 
 
 # Sound
-#mixer.music.load("love.mp3") #เสียงเพลงประกอบ
-#mixer.music.play() #คำสั่งเล่นเพลง
+#mixer.music.load("love.mp3") 
+#mixer.music.play() 
 
 # Caption and Icon
 pygame.display.set_caption("Sky Attack") #ใส่ชื่อเกมส์
