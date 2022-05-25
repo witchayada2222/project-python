@@ -21,15 +21,15 @@ background_intro = pygame.image.load('intro wall (7).png')
 #mixer.music.play() 
 
 # Caption and Icon
-pygame.display.set_caption("Sky Attack") #ใส่ชื่อเกมส์
-icon = pygame.image.load('penguin.png') #ใส่ไอคอน
-pygame.display.set_icon(icon) #เปลี่ยนไอคอนเกมส์ให้เป็นตามที่เราตั้งไว้
+pygame.display.set_caption("Sky Attack") 
+icon = pygame.image.load('penguin.png') 
+pygame.display.set_icon(icon) 
 
 # Player
-playerImg = pygame.image.load('teacher.png') #ไอคอนยาน
-playerX = 350 #ตำแหน่งจุดเริ่มต้นของยานแกนx
-playerY = 500 #ตำแหน่งจุดเริ่มต้นของยานแกนy
-playerX_change = 0 #ความเร็วของการเคลื่อนที่ยานไปชนขอบในตอนเริ่มต้นเลขเยอะเคลื่อนที่เร็ว (พิมลบ เลขน้อย จะเคลื่อนที่ไปทางซ้ายช้าๆ)
+playerImg = pygame.image.load('teacher.png') 
+playerX = 350  
+playerY = 500
+playerX_change = 0 
 
 # Enemy
 enemyImg = []
@@ -37,8 +37,8 @@ enemyX = []
 enemyY = []
 enemyX_change = []
 enemyY_change = []
-num_of_enemies = 8 #จำนวนตัวเลขของenemy
-enemyVelocity = [3,3,3,3,3,3,3,3] #ความเร็วของenemy
+num_of_enemies = 8 
+enemyVelocity = [3,3,3,3,3,3,3,3] 
 enemyPic = {
     0 : 'baimon2.png',
     1 : 'anutep.png',
@@ -50,29 +50,29 @@ enemyPic = {
     7 : 'meteorite(ลดคะเเนน).png'
     }
 for i in range(num_of_enemies):
-    enemyImg.append(pygame.image.load(enemyPic[i])) #รูปenemy
-    enemyX.append(random.randint(0, 736)) #แรนดอมการเกิดของenemyในช่วงแกนx 0-736
-    enemyY.append(random.randint(150, 150)) #แรนดอมการเกิดของenemyในช่วงแกนy 50-150
-    enemyX_change.append(2) #เคลื่อนที่ตามแนวแกนxทีละ4pixel
-    enemyY_change.append(20) #การเคลือนที่ลงมาในแต่ละครั้งเมื่อชนขอบเกมส์ในแนวแกนy (เลขเยอะเคลื่อนลงมาเยอะ)
+    enemyImg.append(pygame.image.load(enemyPic[i]))
+    enemyX.append(random.randint(0, 736)) 
+    enemyY.append(random.randint(150, 150)) 
+    enemyX_change.append(2) 
+    enemyY_change.append(20) 
 
 # Bullet
-bulletImg = pygame.image.load('a-plus-test-result-of-school (1).png') #รูปกระสุน
-bulletX = 400 #ค่าเป็น0เพราะกระสุนไม่เคลื่อนที่ในเเนวเเกนx (เชื่อมกับplayer ตามบรรทัดที่119)
-bulletY = 480 #ตำเเหน่งกระสุนในเเนวเเกนY (เชื่อมกับplayer ตามบรรทัด119)
-bulletY_change = 15 #ความเร็วของกระสุนที่ยิงในแนวแกนy ยิ่งเลขน้อยยิ่งช้า
+bulletImg = pygame.image.load('a-plus-test-result-of-school (1).png') 
+bulletX = 400 
+bulletY = 480 
+bulletY_change = 15 
 bullet_state = "ready"
 
 # Score
 
-score_value = 0 #scoreเริ่มต้น=0
-font = pygame.font.Font('freesansbold.ttf', 32) #fontของscore
+score_value = 0 
+font = pygame.font.Font('freesansbold.ttf', 32) 
 
-textX = 10 #ตำแหน่งของscore
-textY = 10 #ตำแหน่งของscore
+textX = 10 
+textY = 10 
 
 # Game Over
-over_font = pygame.font.Font('freesansbold.ttf', 64) #fontของgameover
+over_font = pygame.font.Font('freesansbold.ttf', 64) 
 
 # scoreboard
 over_scoreboard = pygame.font.Font('freesansbold.ttf', 32)
@@ -183,12 +183,10 @@ class InputBox():
         pass
 
 
-#คำสั่ง blit เป็นคำสั่งให้เเสดงผล
-
-def show_score(x, y): #score&usernameที่เเสดงผลมุมซ้ายบน
+def show_score(x, y): 
     score2 = font.render("Username : " + username , True, (0, 76, 153))
     score = font.render("Score : " + str(score_value), True, (0, 76, 153))
-    screen.blit(score2, (10,10)) #biltคำสั่งแสดงผล
+    screen.blit(score2, (10,10)) 
     screen.blit(score, (10,50))
 
 def game_over_text():
@@ -197,16 +195,15 @@ def game_over_text():
         savescore = 0
         cmd2 = f"""INSERT INTO scoregame(score,username)
          VALUES ("{score_value}","{username}")"""
-        # สร้างตัวแปรมาเก็บคำสั่ง ในvaluesคือข้อมูลที่เรารอรับจากusersจะเอาไปใส่แต่ละคอลัม
-        con.execute(cmd2)  # สามารถรันคำสั่งในวงเล็บนี้ได้
-        con.commit()  # บันทึกค่าล่าสุดหลังแก้ไข
-    over_text = over_font.render("GAME OVER", True, (255, 255, 255)) #ตัวหนังสือGAMEOVER
-    screen.blit(over_text, (200,70)) #เเสดงผลGAME OVERตามตำเเหน่ง
-    over_text = over_font.render("TOP 5", True,(0, 0, 0)) #ตัวหนังสือTOP5
-    screen.blit(over_text, (300, 150)) #เเสดงผลTOP5ตามตำเเหน่ง
+        con.execute(cmd2) 
+        con.commit() 
+    over_text = over_font.render("GAME OVER", True, (255, 255, 255)) 
+    screen.blit(over_text, (200,70)) 
+    over_text = over_font.render("TOP 5", True,(0, 0, 0)) 
+    screen.blit(over_text, (300, 150)) 
 
     #scoreboard TOP5
-    cmd = """SELECT * FROM scoregame WHERE username!='' ORDER BY score DESC LIMIT 5 """ #ดึงข้อมูลมาจากdb
+    cmd = """SELECT * FROM scoregame WHERE username!='' ORDER BY score DESC LIMIT 5 """ 
     loop = 1
     rows = con.execute(cmd)
     for rows in con.execute(cmd):
@@ -221,46 +218,46 @@ def game_over_text():
         if loop == 5 :
             scoreboard[4]=[rows[0],rows[1],rows[2]]
         loop=loop+1
-    scoreboard_text1 = over_scoreboard.render("No.1 SCORE "+str(scoreboard[0][2])+" --> "+str(scoreboard[0][1]), True,(0, 0, 0)) #scoreboard0 ช่องที่2(score)+ช่องที่ 1(ชื่อ)
-    screen.blit(scoreboard_text1, (200, 220)) #ตำเเหน่งที่เเสดง
-    scoreboard_text2 = over_scoreboard.render("No.2 SCORE " + str(scoreboard[1][2]) + " --> " + str(scoreboard[1][1]), True,(0, 0, 0)) #scoreboard1 ช่องที่2(score)+ช่องที่ 1(ชื่อ)
-    screen.blit(scoreboard_text2, (200, 270)) #ตำเเหน่งที่เเสดง
-    scoreboard_text3 = over_scoreboard.render("No.3 SCORE " + str(scoreboard[2][2]) + " --> " + str(scoreboard[2][1]), True,(0, 0, 0)) #scoreboard2 ช่องที่2(score)+ช่องที่ 1(ชื่อ)
-    screen.blit(scoreboard_text3, (200, 320)) #ตำเเหน่งที่เเสดง
-    scoreboard_text4 = over_scoreboard.render("No.4 SCORE " + str(scoreboard[3][2]) + " --> " + str(scoreboard[3][1]), True,(0, 0, 0)) #scoreboard3 ช่องที่2(score)+ช่องที่ 1(ชื่อ)
-    screen.blit(scoreboard_text4, (200, 370)) #ตำเเหน่งที่เเสดง
-    scoreboard_text5 = over_scoreboard.render("No.5 SCORE " + str(scoreboard[4][2]) + " --> " + str(scoreboard[4][1]), True,(0, 0, 0)) #scoreboard4 ช่องที่2(score)+ช่องที่ 1(ชื่อ)
-    screen.blit(scoreboard_text5, (200, 420)) #ตำเเหน่งที่เเสดง
+    scoreboard_text1 = over_scoreboard.render("No.1 SCORE "+str(scoreboard[0][2])+" --> "+str(scoreboard[0][1]), True,(0, 0, 0)) 
+    screen.blit(scoreboard_text1, (200, 220)) 
+    scoreboard_text2 = over_scoreboard.render("No.2 SCORE " + str(scoreboard[1][2]) + " --> " + str(scoreboard[1][1]), True,(0, 0, 0)) 
+    screen.blit(scoreboard_text2, (200, 270)) 
+    scoreboard_text3 = over_scoreboard.render("No.3 SCORE " + str(scoreboard[2][2]) + " --> " + str(scoreboard[2][1]), True,(0, 0, 0)) 
+    screen.blit(scoreboard_text3, (200, 320)) 
+    scoreboard_text4 = over_scoreboard.render("No.4 SCORE " + str(scoreboard[3][2]) + " --> " + str(scoreboard[3][1]), True,(0, 0, 0)) 
+    screen.blit(scoreboard_text4, (200, 370)) 
+    scoreboard_text5 = over_scoreboard.render("No.5 SCORE " + str(scoreboard[4][2]) + " --> " + str(scoreboard[4][1]), True,(0, 0, 0)) 
+    screen.blit(scoreboard_text5, (200, 420)) 
 
 
 def player(x, y):
-    screen.blit(playerImg, (x, y)) #เเสดงตำเเหน่งplayer(ยาน) ค่าx,yตามบรรทัด30 31 และ170
+    screen.blit(playerImg, (x, y)) 
 
 
 def enemy(x, y, i):
-    screen.blit(enemyImg[i], (x, y)) #แสดงภาพenemy
+    screen.blit(enemyImg[i], (x, y))
 
 
 def heart_bullet(x, y):
-    global bullet_state #ประกาศตัวแปร
-    bullet_state = "GradeA"  # ให้มันเชื่อมกับกระสุน
-    screen.blit(bulletImg, (x + 16, y + 10)) #แสดงตำแหน่งที่ปล่อยกระสุนออกมา (ถ้าไม่+ตำเเหน่งกระสุนจะไม่ออกมาจากตรงกลางของยานอวกาศ)
+    global bullet_state 
+    bullet_state = "GradeA"  
+    screen.blit(bulletImg, (x + 16, y + 10)) 
 
-def isCollision(enemyX, enemyY, bulletX, bulletY): #ตรวจสอบการชนกัน
-    distance = math.sqrt(math.pow(enemyX - bulletX, 2) + (math.pow(enemyY - bulletY, 2))) #ตามสูตรหาระยะห่างระหว่างจุดสองจุด
-    if distance < 50: #ยิ่งเลขเยอะยิงโดนง่ายขึ้น
-        return True #ยิ่งแล้วตาย
+def isCollision(enemyX, enemyY, bulletX, bulletY): 
+    distance = math.sqrt(math.pow(enemyX - bulletX, 2) + (math.pow(enemyY - bulletY, 2)))
+    if distance < 50: 
+        return True 
     else:
-        return False #ยิงแล้วไม่ตายเพราะไกลเกิน25
+        return False 
 
 
 # Game Loop
 inputbox = InputBox(15,250,100,300,70)
-running = True #while true คือการรันโดยไม่มีที่สิ้นสุดเพราะมันtrueตลอด แต่เราไม่ได้อยากให้มันรันตลอดเลยต้องใส่ running = true (trueคือบอกว่าจะให้มีการวิ่ง runningคือการบอกให้เกมส์เริ่มเดินตลอดเวลาจนกว่าจะ...)
+running = True 
 while running:
     screen.fill((255,255,255))
     # Background Image
-    screen.blit(background, (0, 0))  # แสดงbackgroundที่เรานำเข้ามา
+    screen.blit(background, (0, 0))  
     if intro == 1:
         screen.blit(background_intro, (0, 0))
 
@@ -276,82 +273,78 @@ while running:
 
 
     if intro == 0:
-        for event in pygame.event.get(): #คำสั่งเช็คเหตุการณ์ที่อยู่ในเกมส์ว่ามีอะไรบ้าง
-            if event.type == pygame.QUIT: #ฟังก์ชันในการปิด คือถ้ากดปุ่มปิดโปรแกรมของเราก็จะหยุดทันทีfalse
-                running = False #เปลี่ยนเป็นfalse ก็คือจบเกมส์
-        ## ---------------------------------------------Baimon------------------------------------------------------------------
-            # if keystroke is pressed check whether its right or left (หากกดเเป้นพิมพ์ตรวจสอบว่าขวาหรือซ้าย)
-            if event.type == pygame.KEYDOWN: #เมื่อกดเเป้น
-                if event.key == pygame.K_LEFT: #เมื่อกดปุ่มซ้าย playerX_change = -5
+        for event in pygame.event.get(): 
+            if event.type == pygame.QUIT: 
+                running = False 
+            # if keystroke is pressed check whether its right or left
+            if event.type == pygame.KEYDOWN: 
+                if event.key == pygame.K_LEFT: 
                     playerX_change = -2
-                if event.key == pygame.K_RIGHT: #กดปุ่มขวา playerX_change = 5
+                if event.key == pygame.K_RIGHT: 
                     playerX_change = 2
-                if event.key == pygame.K_SPACE: #เมื่อกดspacebar
-                    if bullet_state == "ready": #เชื่อมกับBullet Movement บรรทัด162
-                        #bulletSound = mixer.Sound("laser.wav")  # เสียงยิง
-                        #bulletSound.play()  # เรียกใช้เสียง
-                        # รับพิกัด x ปัจจุบันของยานอวกาศ เพื่อระบุที่อยู่ของกระสุน
-                        bulletX = playerX #ที่อยู่กระสุน=ที่อยู่ยาน
-                        heart_bullet(bulletX, bulletY) #ใช้ฟังก์ชันfire_bullet
+                if event.key == pygame.K_SPACE: 
+                    if bullet_state == "ready": 
+                        bulletSound = mixer.Sound("laser.wav")  
+                        bulletSound.play()  
+                        bulletX = playerX 
+                        heart_bullet(bulletX, bulletY) 
                 if event.key == pygame.K_DOWN : #ปิดเสียง
                     pygame.mixer.music.pause()
                 if event.key == pygame.K_UP : #เปิดเสียง
                     pygame.mixer.music.unpause()
 
-            if event.type == pygame.KEYUP: #เมื่อปล่อยเเป้นลูกศรซ้ายขวา
+            if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                    playerX_change = 0 #ไม่มีการเปลี่ยนเเปลง
+                    playerX_change = 0 
 
-        playerX += playerX_change #การเคลื่อนที่ยานแนวแกนx กำหนดให้อยู่ภายในขอบของเกมส์
+        playerX += playerX_change 
         if playerX <= 0:
             playerX = 0
         elif playerX >= 750:
             playerX = 750
-        ## ---------------------------------------------Baimon------------------------------------------------------------------
+       
         #การเคลื่อนที่ของศัตรู
         for i in range(num_of_enemies):
             # Game Over
-            if enemyY[i] > 440: #ถ้าenemy เคลื่อนที่เกิน440ในแนวแกนy จะเรียกใช้ฟังก์ชันgame_over_text
+            if enemyY[i] > 440: 
                 for j in range(num_of_enemies):
                     if i <=4 :
-                        enemyY[j] = 600 #enemyเคลื่อนที่ตามแกนyยาว600จะgame over ถ้าตั้งต่ำกว่านี้เกมส์จะoverแต่enemy จะไม่หายไปแล้วเล่นเกมส์ต่อได้
+                        enemyY[j] = 600 
                 game_over_text()
                 break
             # การเคลื่อนที่ของศัตรู
             enemyX[i] += enemyX_change[i]
             if enemyX[i] <= 0:
-                enemyX_change[i] = enemyVelocity[i] #ความเร็วในการเคลื่อนที่ของenemy เมื่อชนขอบ0
+                enemyX_change[i] = enemyVelocity[i] 
                 enemyY[i] += enemyY_change[i]
-            elif enemyX[i] >= 736: #ความเร็วในการเคลื่อนที่ของenemy เมื่อชนขอบ736
+            elif enemyX[i] >= 736: 
                 enemyX_change[i] = -enemyVelocity[i]
                 enemyY[i] += enemyY_change[i]
-    ### ---------------------------------------------Baimon------------------------------------------------------------------
+
             # Collision การชนกันของกระสุนและศัตรู
             collision = isCollision(enemyX[i], enemyY[i], bulletX, bulletY)
             if collision:
-                if i <=4  : #i 0-4 เป็นตัวenemyปกติ
+                if i <=4  : 
                     score_value += 1
-                    enemyVelocity[i] += 0.8 #เพิ่มความเร็วมาทุกครั้งที่ยิง
-                    # การสั่งให้สุ่มenemy ถ้าไม่มีจะไม่มีการสุ่มตัวให่มมาและตัวเก่าก็จะไม่หายไปแต่scoreจะเพิ่มขึ้นปกติ
+                    enemyVelocity[i] += 0.8 
                     enemyX[i] = random.randint(0, 736)
                     enemyY[i] = random.randint(50, 150)
-                else : #ตัวenemyลดคะเเนน
+                else : 
                     score_value -= 1
-                    enemyVelocity[i] += 0.2 #เพิ่มความเร็วมาทุกครั้งที่ยิง
-                    # การสั่งให้สุ่มenemy ถ้าไม่มีจะไม่มีการสุ่มตัวให่มมาและตัวเก่าก็จะไม่หายไปแต่scoreจะเพิ่มขึ้นปกติ
+                    enemyVelocity[i] += 0.2 
                     enemyX[i] = random.randint(0, 736)
                     enemyY[i] = random.randint(50, 150)
 
-            enemy(enemyX[i], enemyY[i], i) #เรียกใช้ฟังก์ชันenemyเพื่อให้แสดงenemy ถ้าไม่เรียกจะไม่แสดงenemyแต่ยังสามารถสุ่มยิงได้โดยที่scoreก็ยังเพิ่มขึ้นได้
+            enemy(enemyX[i], enemyY[i], i) 
 
         #Bullet Movement การเคลื่อนที่ของกระสุน
-        if bulletY <= 0: #เมื่อกระสุนเคลื่อนที่ไปถึงตำแหน่ง0 จะกลับมาปล่อยที่ 480
+        if bulletY <= 0: 
             bulletY = 480
             bullet_state = "ready"
 
         if bullet_state == "GradeA":
             heart_bullet(bulletX, bulletY)
-            bulletY -= bulletY_change #BulletYเคลื่อนที่ไปข้างบนโดยลบกับค่าของ bulletY_change
-        player(playerX, playerY) #กำหนดตำเเหน่งplayer
-        show_score(textX, textY) #กำหนดตำเเหน่งscore
-        pygame.display.update()  #ทำให้สีพื้นหลังที่เปลี่ยนเป็นสีล่าสุด
+            bulletY -= bulletY_change 
+        player(playerX, playerY) 
+        show_score(textX, textY) 
+        pygame.display.update()  
