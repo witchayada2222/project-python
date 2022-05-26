@@ -17,8 +17,8 @@ background = pygame.image.load('wall (1).png')
 background_intro = pygame.image.load('intro wall (7).png') 
 
 # Sound
-#mixer.music.load("love.mp3") 
-#mixer.music.play() 
+mixer.music.load("love.mp3") 
+mixer.music.play() 
 
 # Caption and Icon
 pygame.display.set_caption("Sky Attack") 
